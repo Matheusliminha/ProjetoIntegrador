@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="box">
-        <form action="" autocomplete="off">
+        <form action="/enviar" method="post" autocomplete="off">
             <fieldset>
                 <legend><b>Cadastro</b></legend>
                 <br>
@@ -29,8 +29,8 @@
                 <br>
                 <div class="inputBox">
                     <label for="permissoes">Selecione o tipo de permissão desejada:</label>
-                    <select name="permissoes">
-                        <option value="nulo">Selecione</option>
+                    <select name="permissoes" required>
+                        <option value="">Selecione</option>
                         <option value="paciente">Paciente</option>
                         <option value="responsável">Responsável</option>
                         <option value="profissional">Profissional</option>

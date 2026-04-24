@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários Cadastrados</title>
+    <link rel="stylesheet" href="styleform.css"> <style>
+        table { width: 90%; margin: 20px auto; border-collapse: collapse; background: white; color: #333; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #4CAF50; color: white; }
+        tr:hover { background-color: #f5f5f5; }
+        .container { text-align: center; padding: 20px; }
+        .btn-voltar { background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body style="background-color: #7ba07e;"> <div class="container">
+        <h2 style="color: white;">Lista de Usuários</h2>
+        <a href="/" class="btn-voltar">Voltar ao Formulário</a>
+        
+        <table id="tabela-usuarios">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Permissão</th>
+                    <th>Gênero</th>
+                    <th>Data de Nascimento</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Função que busca os dados no servidor e preenche a tabela
+        fetch('/dados-usuarios')
+            .then(response => response.json())
+            .then(usuarios => {
+                const corpoTabela = document.querySelector('#tabela-usuarios tbody');
+                usuarios.forEach(user => {
+                    usuarios.forEach(user => {
+                // 1. Criamos um objeto de data a partir da string do banco
+                const dataBanco = new Date(user.data_nascimento);
+                
+                // 2. Formatamos para o padrão brasileiro
+                // O 'UTC' evita que a data mude por causa do fuso horário
+                const dataFormatada = dataBanco.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+
+    const linha = `
+        <tr>
+            <td>${user.nome_completo}</td>
+            <td>${user.email}</td>
+            <td>${user.sexo}</td>
+            <td>${dataFormatada}</td> </tr>
+    `;
+    corpoTabela.innerHTML += linha;
+});
+                    const linha = `
+                        <tr>
+                            <td>${user.nome_completo}</td>
+                            <td>${user.email}</td>
+                            <td>${user.permissao}</td>
+                            <td>${user.sexo}</td>
+                            <td>${user.data_nascimento}</td>
+                            <td>${user.cidade}</td>
+                            <td>${user.estado}</td>
+                            
+                        </tr>
+                    `;
+                    corpoTabela.innerHTML += linha;
+                });
+            });
+    </script>
+</body>
+</html>
